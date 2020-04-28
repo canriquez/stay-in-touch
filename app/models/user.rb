@@ -43,5 +43,4 @@ class User < ApplicationRecord
   def is_friend?(user)
     my_friends.include?(user)
   end
-
 end
