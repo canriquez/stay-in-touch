@@ -6,32 +6,7 @@
         <span class="profile-link">
           <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
 
-          <% if @recieved.include?(user) %>
-            <%= form_with(url: friendships_accept_path, method: 'post', local: true, class: "d-inline") do |f| %>
-              <%= hidden_field(:friendship, :user_id, value: user.id) %>
-              <span class="actions">
-                <%= f.submit "Accept Request", class: "btn btn-primary" %>
-              </span>
-            <% end %>
-            <%= form_with(url: friendships_reject_path, method: 'post', local: true, class: "d-inline") do |f| %>
-              <%= hidden_field(:friendship, :user_id, value: user.id) %>
-              <span class="actions">
-                <%= f.submit "Reject Request", class: "btn btn-primary" %>
-              </span>
-            <% end %>
-          <% elsif @pending.include?(user) %>
-              <span class="btn btn-success">Request sent</span>
-
-          <% elsif !current_user.is_friend?(user) %>        
-            <%= form_with(url: friendships_create_path, method: 'post', local: true, class: "d-inline") do |f| %>
-              <%= hidden_field(:friendship, :user_id, value: user.id) %>
-              <span class="actions">
-                <%= f.submit "Friend request", class: "btn btn-primary" %>
-              </span>
-            <% end %>
-
-          <% end %>
-
+          <%= render 'users/friendship', user: user %>
         </span>
       </li>
     <% end %>

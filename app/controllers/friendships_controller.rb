@@ -1,8 +1,7 @@
 class FriendshipsController < ApplicationController
+  before_action :set_user
 
   def create
-    @friend = User.find(friendship_params[:user_id])
-  
     @new_friendship = Friendship.new
     @new_friendship.user_id = current_user.id
     @new_friendship.friend_id = @friend.id
@@ -17,7 +16,6 @@ class FriendshipsController < ApplicationController
   end
 
   def accept
-    @friend = User.find(friendship_params[:user_id])
     if current_user.accept_request(@friend)
       flash[:notice] = "Friend request accepted"
     else
@@ -27,7 +25,6 @@ class FriendshipsController < ApplicationController
   end
 
   def reject
-    @friend = User.find(friendship_params[:user_id])
     if current_user.reject_request(@friend)
       flash[:notice] = "Friend request rejected"
     else
@@ -36,7 +33,12 @@ class FriendshipsController < ApplicationController
     redirect_to users_path
   end
 
+  private
   def friendship_params
     params.require(:friendship).permit(:user_id)
+  end
+
+  def set_user
+    @friend = User.find(friendship_params[:user_id])
   end
 end
