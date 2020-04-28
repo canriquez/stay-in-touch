@@ -33,18 +33,18 @@ class User < ApplicationRecord
   end
 
   def accept_request(user)
-    friendship = inverse_friendships.find { |friendship| friendship.user == user }
+    friendship = inverse_friendships.find { |f| f.user == user }
     friendship.status = 'accepted'
     friendship.save
   end
 
   def reject_request(user)
-    friendship = inverse_friendships.find { |friendship| friendship.user == user }
+    friendship = inverse_friendships.find { |f| f.user == user }
     friendship.status = 'rejected'
     friendship.save
   end
 
-  def is_friend?(user)
+  def friend?(user)
     my_friends.include?(user)
   end
 end

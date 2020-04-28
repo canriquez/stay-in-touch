@@ -14,7 +14,7 @@
 <% elsif @pending.include?(user) && user.id != current_user.id %>
     <span class="badge badge-success p-1">Request sent</span>
 
-<% elsif !current_user.is_friend?(user) && user.id != current_user.id %>        
+<% elsif !current_user.riend?(user) && user.id != current_user.id %>        
   <%= form_with(url: friendships_create_path, method: 'post', local: true, class: "d-inline") do |f| %>
     <%= hidden_field(:friendship, :user_id, value: user.id) %>
     <span class="actions">
