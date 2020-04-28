@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  post 'friendships/create'
+  post 'friendships/accept'
+  post 'friendships/reject'
+
   root 'posts#index'
 
   devise_for :users
