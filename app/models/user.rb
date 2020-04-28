@@ -13,33 +13,33 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
-  has_many :friendships 
-  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :friendships
+  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
 
   def my_friends
-    friends = friendships.map{|friendship| friendship.friend if friendship.status == 'accepted'}
-    friends += inverse_friendships.map{|friendship| friendship.user if friendship.status == 'accepted'}
-    friends.compact   #cleanup
+    friends = friendships.map { |friendship| friendship.friend if friendship.status == 'accepted' }
+    friends += inverse_friendships.map { |friendship| friendship.user if friendship.status == 'accepted' }
+    friends.compact # cleanup
   end
 
-  #My sent friendship requests 
+  # My sent friendship requests
   def pending_requests
-    friendships.map{|friendship| friendship.friend if friendship.status == "requested" }.compact
+    friendships.map { |friendship| friendship.friend if friendship.status == 'requested' }.compact
   end
 
-  #recieved friendship requests that I have not accepted or denied 
+  # recieved friendship requests that I have not accepted or denied
   def recieved_requests
-    inverse_friendships.map{|friendship| friendship.user if friendship.status == 'requested'}.compact
+    inverse_friendships.map { |friendship| friendship.user if friendship.status == 'requested' }.compact
   end
 
   def accept_request(user)
-    friendship = inverse_friendships.find{|friendship| friendship.user == user}
+    friendship = inverse_friendships.find { |friendship| friendship.user == user }
     friendship.status = 'accepted'
     friendship.save
   end
 
   def reject_request(user)
-    friendship = inverse_friendships.find{|friendship| friendship.user == user}
+    friendship = inverse_friendships.find { |friendship| friendship.user == user }
     friendship.status = 'rejected'
     friendship.save
   end

@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   def set_requests
     @pending = current_user.pending_requests
     @recieved = current_user.recieved_requests
