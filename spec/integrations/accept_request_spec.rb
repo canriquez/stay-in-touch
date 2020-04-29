@@ -26,8 +26,7 @@ RSpec.describe 'User creates a new registered user', type: :feature do
 
     click_button 'Send request'
 
-
-    #Second user login
+    # Second user login
     click_link 'Sign out'
 
     visit new_user_session_path
@@ -42,6 +41,5 @@ RSpec.describe 'User creates a new registered user', type: :feature do
     click_button 'Accept Request'
 
     expect(page).to have_content('Friend')
-
   end
 end

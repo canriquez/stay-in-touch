@@ -7,11 +7,6 @@ RSpec.describe 'User creates a new registered user', type: :feature do
                      password: 'password',
                      password_confirmation: 'password')
     @user.save
-    @user = User.new(name: 'exampleUser2',
-                     email: 'example2@example.com',
-                     password: 'password',
-                     password_confirmation: 'password')
-    @user.save
   end
 
   scenario 'they access the home page and click the signin button' do
@@ -22,10 +17,10 @@ RSpec.describe 'User creates a new registered user', type: :feature do
 
     click_button 'Sign In'
 
-    click_link 'All users'
+    fill_in 'post[content]', with: 'post Test'
 
-    click_button 'Send request'
+    click_button 'Save'
 
-    expect(page).to have_content('Request sent')
+    expect(page).to have_content('post Test')
   end
 end
