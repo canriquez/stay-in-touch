@@ -15,4 +15,16 @@ module ApplicationHelper
       link_to('Like!', post_likes_path(post_id: post.id), method: :post)
     end
   end
+
+  def present?(list, record)
+    list.include?(record) && record.id != current_user.id
+  end
+
+  def request?(user)
+    !current_user.friend?(user) && user.id != current_user.id
+  end
+
+  def friend?(user)
+    user.id != current_user.id
+  end
 end
