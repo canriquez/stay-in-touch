@@ -1,4 +1,4 @@
-<% if @recieved.include?(user) && user.id != current_user.id %>
+<% if present?(@recieved, user) %>
   <%= form_with(url: friendships_accept_path, method: 'post', local: true, class: "d-inline") do |f| %>
     <%= hidden_field(:friendship, :user_id, value: user.id) %>
     <span class="actions">
@@ -11,16 +11,18 @@
       <%= f.submit "Reject Request", class: "btn btn-primary" %>
     </span>
   <% end %>
-<% elsif @pending.include?(user) && user.id != current_user.id %>
+<% elsif present?(@pending, user) %>
+
     <span class="badge badge-success p-1">Request sent</span>
 
-<% elsif !current_user.friend?(user) && user.id != current_user.id %>        
+<% elsif request?(user) %>   
   <%= form_with(url: friendships_create_path, method: 'post', local: true, class: "d-inline") do |f| %>
     <%= hidden_field(:friendship, :user_id, value: user.id) %>
     <span class="actions">
       <%= f.submit "Send request", class: "btn btn-primary" %>
     </span>
   <% end %>
-<% elsif user.id != current_user.id %>  
+  
+<% elsif friend?(user) %>  
   <span class="badge badge-info p-1">Friend</span>
 <% end %>
