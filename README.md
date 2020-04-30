@@ -2,7 +2,10 @@
 
 This web application is a social network where users can add friends and share posts.
 
-## Environment set up requirements
+## Live App link
+
+[heroku live site](https://pure-coast-26349.herokuapp.com/)
+
 
 To run this project, you need ruby installed in your environment
 Run the following command:
