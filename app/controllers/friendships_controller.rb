@@ -16,10 +16,15 @@ class FriendshipsController < ApplicationController
   end
 
   def accept
-    if current_user.accept_request(@friend)
-      flash[:notice] = 'Friend request accepted'
+    @new_friendship = Friendship.new
+    @new_friendship.user_id = current_user.id
+    @new_friendship.friend_id = @friend.id
+    @new_friendship.status = 'accepted'
+
+    if current_user.accept_request(@friend) && @new_friendship.save
+      flash[:notice] = 'Friend request accepted - double record method'
     else
-      flash[:alert] = 'Error accepting friend request'
+      flash[:alert] = 'Error accepting friend request - double record method'
     end
     redirect_to users_path
   end
