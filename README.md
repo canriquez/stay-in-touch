@@ -27,11 +27,11 @@ If you don't get that result, follow this [link](https://www.ruby-lang.org/en/do
  
 This action will install all the required dependencies. 
 
-
 ## Built With
 
 - Ruby
 - Ruby on Rails
+- bootstrap
 
 ## Authors
 

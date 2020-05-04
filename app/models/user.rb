@@ -18,7 +18,6 @@ class User < ApplicationRecord
 
   def my_friends
     friends = friendships.map { |friendship| friendship.friend if friendship.status == 'accepted' }
-    friends += inverse_friendships.map { |friendship| friendship.user if friendship.status == 'accepted' }
     friends.compact # cleanup
   end
 
